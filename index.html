@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Blockly sample</title>
+<script src="https://cdn.jsdelivr.net/npm/blockly@1.0.0/blockly_compressed.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blockly@1.0.0/blocks_compressed.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blockly@1.0.0/javascript_compressed.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blockly@1.0.0/msg/js/ja.min.js"></script>
+</head>
+<body>
+	<div id="blocklyDiv" style="height: 480px; width: 800px;"></div>
+	<xml id="toolbox" style="display:none;">
+		<block type="controls_if"></block>
+		<block type="controls_repeat_ext"></block>
+		<block type="logic_compare"></block>
+		<block type="math_number"></block>
+		<block type="math_arithmetic"></block>
+		<block type="text"></block>
+		<block type="text_print"></block>
+	  </xml>
+	  <textarea id="codebox" rows="10" cols="100"></textarea>
+	  <button id="run">実行</button>
+	  <script>
+		var workspace = Blockly.inject('blocklyDiv',
+			{
+				toolbox: document.getElementById('toolbox')
+			}
+		);
+
+		workspace.addChangeListener(function(){
+			var codebox = document.getElementById("codebox");
+			var code = Blockly.JavaScript.workspaceToCode(workspace);
+			codebox.value = code;
+		});
+
+		run.addEventListener("click", function(){
+			var codebox = document.getElementById("codebox");
+			var code = Blockly.JavaScript.workspaceToCode(workspace);
+
+			codebox.value = code;
+
+			try {
+				eval(code);
+			} catch (error) {
+				alert("Code ERROR: " + error);
+			}
+		});
+	  </script>
+</body>
+</html>
